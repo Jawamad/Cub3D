@@ -26,16 +26,16 @@ void	init_map_data(t_data *data)
 	data->map_data.p_count = 0;
 	data->map_data.width = 0;
 	data->map_data.height = 0;
-	data->map_data.NO = NULL;
-	data->map_data.SO = NULL;
-	data->map_data.WE = NULL;
-	data->map_data.EA = NULL;
-	data->map_data.CC = NULL;
-	data->map_data.CF = NULL;
+	data->map_data.no = NULL;
+	data->map_data.so = NULL;
+	data->map_data.we = NULL;
+	data->map_data.ea = NULL;
+	data->map_data.cc = NULL;
+	data->map_data.cf = NULL;
 	data->map_data.count_line = 0;
 }
 
-void	line_north(char *line, t_data *data)
+void	line_cardinal(char *line, t_data *data, int flag)
 {
 	int	i;
 	int	j;
@@ -47,74 +47,22 @@ void	line_north(char *line, t_data *data)
 	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
 		i++;
 	j = i;
-	while (line[i] != ' ' && (line[i] <= 9 && line[i] >= 13))
+	while (line[i] != ' ' && (line[i] <= 9 || line[i] >= 13))
 		i++;
 	if (line[j] != '.' && line[j + 1] != '/')
 		ft_error_data(data, 0);
-	data->map_data.NO = ft_strndup_gnl(line + j, (i - j));
+	if (flag == 1)
+		data->map_data.no = ft_strndup_gnl(line + j, (i - j));
+	if (flag == 2)
+		data->map_data.so = ft_strndup_gnl(line + j, (i - j));
+	if (flag == 3)
+		data->map_data.we = ft_strndup_gnl(line + j, (i - j));
+	if (flag == 4)
+		data->map_data.ea = ft_strndup_gnl(line + j, (i - j));
 	data->map_data.count_line += 1;
 }
 
-void	line_south(char *line, t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	i += 2;
-	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	j = i;
-	while (line[i] != ' ' && (line[i] <= 9 && line[i] >= 13))
-		i++;
-	if (line[j] != '.' && line[j + 1] != '/')
-		ft_error_data(data, 0);
-	data->map_data.SO = ft_strndup_gnl(line + j, (i - j));
-	data->map_data.count_line += 1;
-}
-void	line_west(char *line, t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	i += 2;
-	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	j = i;
-	while (line[i] != ' ' && (line[i] <= 9 && line[i] >= 13))
-		i++;
-	if (line[j] != '.' && line[j + 1] != '/')
-		ft_error_data(data, 0);
-	data->map_data.WE = ft_strndup_gnl(line + j, (i - j));
-	data->map_data.count_line += 1;
-}
-
-void	line_east(char *line, t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	i += 2;
-	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	j = i;
-	while (line[i] != ' ' && (line[i] <= 9 && line[i] >= 13))
-		i++;
-	if (line[j] != '.' && line[j + 1] != '/')
-		ft_error_data(data, 0);
-	data->map_data.EA = ft_strndup_gnl(line + j, (i - j));
-	data->map_data.count_line += 1;
-}
-
-void	line_ceilling(char *line, t_data *data)
+void	line_color(char *line, t_data *data, int flag)
 {
 	int	i;
 	int	j;
@@ -126,31 +74,12 @@ void	line_ceilling(char *line, t_data *data)
 	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
 		i++;
 	j = i;
-	while (line[i] != ' ' && (line[i] <= 9 && line[i] >= 13))
+	while (line[i] != '\n')
 		i++;
-	if (line[j] != '.' && line[j + 1] != '/')
-		ft_error_data(data, 0);
-	data->map_data.EA = ft_strndup_gnl(line + j, (i - j));
-	data->map_data.count_line += 1;
-}
-
-void	line_floor(char *line, t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	i += 1;
-	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
-		i++;
-	j = i;
-	while (line[i] != ' ' && (line[i] <= 9 && line[i] >= 13))
-		i++;
-	if (line[j] != '.' && line[j + 1] != '/')
-		ft_error_data(data, 0);
-	data->map_data.EA = ft_strndup_gnl(line + j, (i - j));
+	if (flag == 1)
+		data->map_data.cc = ft_strndup_gnl(line + j, (i - j));
+	if (flag == 2)
+		data->map_data.cf = ft_strndup_gnl(line + j, (i - j));
 	data->map_data.count_line += 1;
 }
 
@@ -160,23 +89,23 @@ void	check_line(char *line, t_data *data)
 
 	i = 0;
 	if (line[i] == '\n')
-		return;
+		return ;
 	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
 		i++;
 	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		line_north(line, data);
+		line_cardinal(line, data, 1);
 	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		line_south(line, data);
+		line_cardinal(line, data, 2);
 	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
-		line_west(line, data);
+		line_cardinal(line, data, 3);
 	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
-		line_east(line, data);
+		line_cardinal(line, data, 4);
 	else if (line[i] == 'C' && line[i + 1] == ' ')
-		line_ceilling(line, data);
+		line_color(line, data, 1);
 	else if (line[i] == 'F' && line[i + 1] == ' ')
-		line_floor(line, data);
+		line_color(line, data, 2);
 	else
-		ft_error_data(data, 0);
+		ft_error_data(data, 1);
 }
 
 void	read_map(int file, t_data *data)
@@ -192,14 +121,25 @@ void	read_map(int file, t_data *data)
 		free(line);
 		line = get_next_line(file);
 	}
-	
+	map_line = ft_strdup("");
+	while (1)
+	{
+		map_line = ft_strjoin_gnl(map_line, line);
+		free(line);
+		line = get_next_line(file);
+		if (!line)
+			break ;
+	}
+	free(line);
+	data->map_data.map = ft_split(map_line, '\n');
+	close(file);
+	free(map_line);
 }
 
 void	read_option(char **av, t_data *data)
 {
 	int		file;
 	char	*line;
-	char	*map_line;
 
 	file = open(av[1], O_RDONLY);
 	if (!file)
@@ -208,28 +148,145 @@ void	read_option(char **av, t_data *data)
 	if (!line)
 		ft_error(3);
 	check_line(line, data);
-	map_line = ft_strdup("");
 	while (1)
 	{
 		free(line);
 		line = get_next_line(file);
 		if (!line)
-			break;
+			break ;
 		check_line(line, data);
 		if (data->map_data.count_line == 6)
+		{
+			free(line);
 			read_map(file, data);
+			break ;
+		}
 	}
+}
+
+void	check_color(t_data *data)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (data->map_data.cc[++i] != '\0')
+	{
+		if (data->map_data.cc[i] == ',')
+			count += 1;
+		if (!ft_isdigit(data->map_data.cc[i]) && data->map_data.cc[i] != ',')
+			ft_error_data(data, 2);
+	}
+	if (count != 2)
+		ft_error_data(data, 2);
+	i = -1;
+	count = 0;
+	while (data->map_data.cf[++i] != '\0')
+	{
+		if (data->map_data.cf[i] == ',')
+			count += 1;
+		if (!ft_isdigit(data->map_data.cf[i]) && data->map_data.cf[i] != ',')
+			ft_error_data(data, 2);
+	}
+	if (count != 2)
+		ft_error_data(data, 2);
+}
+
+void	clean_color_cc(t_data *data)
+{
+	int		i;
+	int		j;
+	char	*temp;
+	char	*temp2;
+
+	i = 0;
+	while (data->map_data.cc[i])
+	{
+		if (data->map_data.cc[i] == ' ' || (data->map_data.cc[i] >= 9
+				&& data->map_data.cc[i] <= 13))
+		{
+			j = i;
+			while (data->map_data.cc[i] == ' ' || (data->map_data.cc[i] >= 9
+					&& data->map_data.cc[i] <= 13))
+				i++;
+			temp = ft_strndup_gnl(data->map_data.cc, j);
+			temp2 = ft_strdup(data->map_data.cc);
+			free (data->map_data.cc);
+			data->map_data.cc = ft_strjoin(temp, temp2 + i);
+			return (free(temp), free(temp2), clean_color_cc(data));
+		}
+		else
+			i++;
+	}
+}
+
+void	clean_color_cf(t_data *data)
+{
+	int		i;
+	int		j;
+	char	*temp;
+	char	*temp2;
+
+	i = 0;
+	while (data->map_data.cf[i])
+	{
+		if (data->map_data.cf[i] == ' ' || (data->map_data.cf[i] >= 9
+				&& data->map_data.cf[i] <= 13))
+		{
+			j = i;
+			while (data->map_data.cf[i] == ' ' || (data->map_data.cf[i] >= 9
+					&& data->map_data.cf[i] <= 13))
+				i++;
+			temp = ft_strndup_gnl(data->map_data.cf, j);
+			temp2 = ft_strdup(data->map_data.cf);
+			free (data->map_data.cf);
+			data->map_data.cf = ft_strjoin(temp, temp2 + i);
+			return (free(temp), free(temp2), clean_color_cf(data));
+		}
+		else
+			i++;
+	}
+}
+
+void	check_value_color(t_data *data)
+{
+	char	**value;
+	int		i;
+	int		val;
+
+	i = 0;
+	value = ft_split(data->map_data.cc, ',');
+	while (value[i])
+	{
+		val = ft_atoi(value[i]);
+		if (val < 0 || val > 255)
+			return (free_array(value), ft_error_data(data, 3));
+		i++;
+	}
+	free_array(value);
+	value = ft_split(data->map_data.cf, ',');
+	while (value[i])
+	{
+		val = ft_atoi(value[i]);
+		if (val < 0 || val > 255)
+			return (free_array(value), ft_error_data(data, 3));
+		i++;
+	}
+	free_array(value);
 }
 
 int	parsing(char **av, t_data *data)
 {
 	init_map_data(data);
 	read_option(av, data);
+	clean_color_cc(data);
+	clean_color_cf(data);
+	check_color(data);
+	check_value_color(data);
+	return (0);
 
 
-
-
-	//data->map_data.map = read_map(av);
 	//is_map_rectangle(data);
 	//check_walls_and_char(data);
 	//is_path_valid(av, data);

@@ -1,7 +1,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-          /* Library */
+/* Library */
 
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
@@ -16,7 +16,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
-          /* Structure */
+/* Structure */
 
 typedef struct s_pos{
 	int				x;
@@ -32,12 +32,12 @@ typedef struct s_map_data{
 	int				height;
 	t_pos			p_pos;
 
-	char			*NO;
-	char			*SO;
-	char			*WE;
-	char			*EA;
-	char			*CC;
-	char			*CF;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	char			*cc;
+	char			*cf;
 	int				count_line;
 }	t_map_data;
 
@@ -49,17 +49,28 @@ typedef struct s_data{
 //	t_img			img;
 }		t_data;
 
-          /* Fonctions */
+/* Fonctions */
 
 /* parsing/parsing.c */
 int		check_exten(char *av);
 void	init_map_data(t_data *data);
+void	read_map(int file, t_data *data);
 void	read_option(char **av, t_data *data);
 int		parsing(char **av, t_data *data);
+void	check_line(char *line, t_data *data);
+void	line_color(char *line, t_data *data, int flag);
+void	line_cardinal(char *line, t_data *data, int flag);
+void	check_color(t_data *data);
+void	clean_color_cc(t_data *data);
+void	clean_color_cf(t_data *data);
+void	check_value_color(t_data *data);
 
-/* error/ft_error.c */
+/* utils/ft_error.c */
 void	ft_error(int flag);
 void	ft_error_data(t_data *data, int flag);
+void	free_char_option(t_data *data);
 
+/* utils/ft_utils.c */
+void	free_array(char **array);
 
 #endif
