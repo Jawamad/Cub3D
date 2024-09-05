@@ -58,8 +58,10 @@ void	read_map(int file, t_data *data);
 void	read_option(char **av, t_data *data);
 int		parsing(char **av, t_data *data);
 void	check_line(char *line, t_data *data);
-void	line_color(char *line, t_data *data, int flag);
+void	check_char_map(t_data *data);
 void	line_cardinal(char *line, t_data *data, int flag);
+
+void	line_color(char *line, t_data *data, int flag);
 void	check_color(t_data *data);
 void	clean_color_cc(t_data *data);
 void	clean_color_cf(t_data *data);

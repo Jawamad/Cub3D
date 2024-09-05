@@ -276,6 +276,55 @@ void	check_value_color(t_data *data)
 	free_array(value);
 }
 
+void	check_char_map(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (data->map_data.map[y])
+	{
+		x = 0;
+		while (data->map_data.map[y][x])
+		{
+			if (data->map_data.map[y][x] == ' ' || data->map_data.map[y][x] == '1'
+			|| data->map_data.map[y][x] == '0' || data->map_data.map[y][x] == 'N'
+			|| data->map_data.map[y][x] == 'S' || data->map_data.map[y][x] == 'E'
+			|| data->map_data.map[y][x] == 'W')
+				x++;
+			else
+				ft_error_data(data, 4);
+		}
+		y++;
+	}
+	data->map_data.nb_row = y;
+}
+
+void	check_wall(t_data *data)
+{
+	int		x;
+	int		y;
+	char	**map;
+
+	y = 0;
+	x = 0;
+	map = malloc(sizeof(char *) * data->map_data.nb_row + 1);
+	while (data->map_data.map[y])
+		map[y] = ft_strdup(data->map_data.map[y++]);
+	map[y] = '\0';
+	y = 0;
+	while (map[y][x])
+	{
+		if (map[y][x] != '0')
+		{
+			if (map[y - 1][x - 1] );
+		}
+		else
+			x++;
+	}
+	free_array(map);
+}
+
 int	parsing(char **av, t_data *data)
 {
 	init_map_data(data);
@@ -284,6 +333,10 @@ int	parsing(char **av, t_data *data)
 	clean_color_cf(data);
 	check_color(data);
 	check_value_color(data);
+
+	check_char_map(data);
+	check_wall(data);
+
 	return (0);
 
 

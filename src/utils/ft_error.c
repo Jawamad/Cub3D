@@ -26,7 +26,7 @@ void	ft_error_data(t_data *data, int flag)
 	if (flag == 3)
 		perror("Error\nColor code need between 0 and 255 ");
 	if (flag == 4)
-		perror("");
+		perror("Error\nWrong char in the map ");
 	if (flag == 5)
 		perror("");
 	if (flag == 6)
