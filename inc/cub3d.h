@@ -18,9 +18,14 @@
 
 /* Structure */
 
+typedef struct s_coord{
+	int	x;
+	int	y;
+}	t_coord;
+
 typedef struct s_pos{
-	int				x;
-	int				y;
+	double	x;
+	double	y;
 }	t_pos;
 
 typedef struct s_map_data{
@@ -72,5 +77,10 @@ void	free_char_option(t_data *data);
 
 /* utils/ft_utils.c */
 void	free_array(char **array);
+
+/* raycast/minimap.c */
+
+/* raycast/pos.c */
+void	*init_pos(int type);
 
 #endif
