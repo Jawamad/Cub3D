@@ -25,8 +25,8 @@ typedef struct s_pos{
 
 typedef struct s_map_data{
 	char			**map;
-	unsigned int	nb_column;
-	unsigned int	nb_row;
+	int				nb_column;
+	int				nb_row;
 	int				p_count;
 	int				width;
 	int				height;
@@ -39,6 +39,7 @@ typedef struct s_map_data{
 	char			*cc;
 	char			*cf;
 	int				count_line;
+	int				valid_map;
 }	t_map_data;
 
 typedef struct s_data{
