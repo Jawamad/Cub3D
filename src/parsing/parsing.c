@@ -322,7 +322,7 @@ void	check_angle(char **map_cpy, int y, int x, t_data *data)
 
 void	is_closed(char **map_cpy, int y, int x, t_data *data)
 {
-	if (map_cpy[y][x] != 0)
+	if (map_cpy[y][x] != '0')
 		return ;
 	if (check_in_map(map_cpy, x, y, data) == 1)
 	{
@@ -389,4 +389,33 @@ int	parsing(char **av, t_data *data)
 	//is_map_rectangle(data);
 	//check_walls_and_char(data);
 	//is_path_valid(av, data);
+}
+
+void	convert_hexa(long int nbr)
+{
+	char *base = "0123456789abcdef";
+
+	if (nbr < 0)
+	{
+		ft_putchar('-', count);
+		nbr *= -1;
+	}
+	if (nbr > basenbr)
+		ft_putnbr((nbr / basenbr), basenbr, count);
+	ft_putchar(base[nbr % basenbr], count);
+}
+
+char	*convert_color(char *col)
+{
+	char		**color;
+	char		*res;
+	long int	num;
+	int			i;
+
+	color = ft_split(col, ',');
+	res = NULL;
+	res = ft_strdup("0x");
+	i = 0;
+	num = ft_atoi(col[i]);
+	res = ft_strjoin(res, convert_hexa(num));
 }
