@@ -79,8 +79,18 @@ void	free_char_option(t_data *data);
 void	free_array(char **array);
 
 /* raycast/minimap.c */
+void	set_minimap(t_data *data);
+void	put_tile_mmap(int x, int y, t_data *data);
+void	paint_tile_mmap(int x, int y, int color,t_data *data);
+int		is_player_mmap(char c);
+t_coord	*search_player(t_data *data);
+
 
 /* raycast/pos.c */
 void	*init_pos(int type);
+
+/* raycast/mlxinit.c */
+
+void	init_win(t_data *data);
 
 #endif

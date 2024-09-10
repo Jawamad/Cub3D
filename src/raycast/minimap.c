@@ -1,4 +1,4 @@
-#include "../inc/cub3d.h";
+#include "../../inc/cub3d.h"
 
 void	set_minimap(t_data *data)
 {
@@ -27,9 +27,9 @@ void	set_minimap(t_data *data)
 void	put_tile_mmap(int x, int y, t_data *data)
 {
 	if (!is_player_mmap(data->map_data.map[y][x]))
-		paint_tile_mmap(x, y, 0, data);
-	if (!is_wall_mmap(data->map_data.map[y][x]))
-		paint_tile_mmap(x, y, 1, data);
+		paint_tile_mmap(x, y, 0xFFFFFF, data);
+	/* if (!is_wall_mmap(data->map_data.map[y][x]))
+		paint_tile_mmap(x, y, 16777215, data); */
 }
 
 void	paint_tile_mmap(int x, int y, int color,t_data *data)
@@ -48,7 +48,6 @@ void	paint_tile_mmap(int x, int y, int color,t_data *data)
 		pencil.y++;
 	}
 }
-
 
 int	is_player_mmap(char c)
 {
@@ -74,4 +73,5 @@ t_coord	*search_player(t_data *data)
 			pos->y++;
 		}
 	}
+	return(NULL);
 }

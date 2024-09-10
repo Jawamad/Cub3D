@@ -5,12 +5,14 @@
 
 
 
-/* int	main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	data;
-	int i = 0;
+	//int i = 0;
+	(void)ac;
+	(void)av;
 
-	if (ac != 2)
+	/* if (ac != 2)
 		ft_error(0);
 	check_exten(av[1]);
 	parsing(av, &data);
@@ -26,8 +28,9 @@
 	{
 		printf("ligne %d : %s\n", i, data.map_data.map[i]);
 		i++;
-	}
-
+	} */
+	init_win(&data);
+	set_minimap(&data);
 
 	if (data.map_data.map[0] != NULL)
 		free_array(data.map_data.map);
@@ -44,4 +47,4 @@
 	//mlx_key_hook(data.mlx_win, handle_events, &data);
 	//mlx_hook(data.mlx_win, 17, 0, close_window, &data);
 	//mlx_loop(data.mlx);
-} */
+}
