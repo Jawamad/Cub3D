@@ -391,31 +391,18 @@ int	parsing(char **av, t_data *data)
 	//is_path_valid(av, data);
 }
 
-void	convert_hexa(long int nbr)
+int rgb_to_hex(char *rgb_str)
 {
-	char *base = "0123456789abcdef";
+	int	r;
+	int	g;
+	int	b;
+	char **rgb;
+	int color;
 
-	if (nbr < 0)
-	{
-		ft_putchar('-', count);
-		nbr *= -1;
-	}
-	if (nbr > basenbr)
-		ft_putnbr((nbr / basenbr), basenbr, count);
-	ft_putchar(base[nbr % basenbr], count);
-}
-
-char	*convert_color(char *col)
-{
-	char		**color;
-	char		*res;
-	long int	num;
-	int			i;
-
-	color = ft_split(col, ',');
-	res = NULL;
-	res = ft_strdup("0x");
-	i = 0;
-	num = ft_atoi(col[i]);
-	res = ft_strjoin(res, convert_hexa(num));
+	rgb = ft_split(rgb_str, ',');
+	r = ft_atoi(rgb[0]);
+	g = ft_atoi(rgb[1]);
+	b = ft_atoi(rgb[2]);
+	color = (r << 16) | (g << 8) | b;
+	return color;
 }
