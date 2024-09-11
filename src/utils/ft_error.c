@@ -35,7 +35,7 @@ void	ft_error_data(t_data *data, int flag)
 		perror("");
 	if (flag == 8)
 		perror("");
-	if (data->map_data.map[0] != NULL)
+	if (data->map_data.map != NULL && data->map_data.map[0] != NULL)
 		free_array(data->map_data.map);
 	free_char_option(data);
 	exit (1);

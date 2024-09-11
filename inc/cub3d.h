@@ -53,20 +53,29 @@ typedef struct s_data{
 /* Fonctions */
 
 /* parsing/parsing.c */
-int		check_exten(char *av);
 void	init_map_data(t_data *data);
 void	read_map(int file, t_data *data);
 void	read_option(char **av, t_data *data);
 int		parsing(char **av, t_data *data);
+
+/* parsing/parsing_check_file.c */
+int		check_exten(char *av);
+void	line_cardinal(char *line, t_data *data, int flag);
 void	check_line(char *line, t_data *data);
 void	check_char_map(t_data *data);
-void	line_cardinal(char *line, t_data *data, int flag);
 
-void	line_color(char *line, t_data *data, int flag);
+/* parsing/parsing_map_closed.c */
+int		check_in_map(char **map_cpy, int x, int y, t_data *data);
+void	check_angle(char **map_cpy, int y, int x, t_data *data);
+void	is_closed(char **map_cpy, int y, int x, t_data *data);
+void	check_wall(t_data *data);
+
+/* parsing/parsing_color.c */
 void	check_color(t_data *data);
 void	clean_color_cc(t_data *data);
 void	clean_color_cf(t_data *data);
 void	check_value_color(t_data *data);
+void	line_color(char *line, t_data *data, int flag);
 
 /* utils/ft_error.c */
 void	ft_error(int flag);
@@ -75,5 +84,6 @@ void	free_char_option(t_data *data);
 
 /* utils/ft_utils.c */
 void	free_array(char **array);
+int		rgb_to_hex(char *rgb_str);
 
 #endif
