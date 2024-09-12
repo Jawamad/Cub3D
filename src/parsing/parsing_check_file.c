@@ -68,7 +68,10 @@ void	check_line(char *line, t_data *data)
 	else if (line[i] == 'F' && line[i + 1] == ' ')
 		line_color(line, data, 2);
 	else
+	{
+		free(line);
 		ft_error_data(data, 1);
+	}
 }
 
 void	check_char_map(t_data *data)

@@ -3,8 +3,9 @@
 int	main(int ac, char **av)
 {
 	t_data	data;
-	int i = 0;
+	int		i;
 
+	i = 0;
 	if (ac != 2)
 		ft_error(0);
 	check_exten(av[1]);
@@ -28,13 +29,8 @@ int	main(int ac, char **av)
 		free_array(data.map_data.map);
 	free_char_option(&data);
 
-
+	
 	return (0);
-
-
-
-
-
 	//display_map(&data);
 	//mlx_key_hook(data.mlx_win, handle_events, &data);
 	//mlx_hook(data.mlx_win, 17, 0, close_window, &data);

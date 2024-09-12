@@ -28,14 +28,14 @@ void	ft_error_data(t_data *data, int flag)
 	if (flag == 4)
 		perror("Error\nWrong char in the map ");
 	if (flag == 5)
-		perror("");
+		perror("Error\nMap not close ");
 	if (flag == 6)
 		perror("");
 	if (flag == 7)
 		perror("");
 	if (flag == 8)
 		perror("");
-	if (data->map_data.map != NULL && data->map_data.map[0] != NULL)
+	if (data->map_data.map != NULL)
 		free_array(data->map_data.map);
 	free_char_option(data);
 	exit (1);

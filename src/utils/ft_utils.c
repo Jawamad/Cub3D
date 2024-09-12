@@ -16,16 +16,16 @@ void	free_array(char **array)
 
 int	rgb_to_hex(char *rgb_str)
 {
-	int	r;
-	int	g;
-	int	b;
-	char **rgb;
-	int color;
+	int		r;
+	int		g;
+	int		b;
+	char	**rgb;
+	int		color;
 
 	rgb = ft_split(rgb_str, ',');
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);
 	color = (r << 16) | (g << 8) | b;
-	return color;
+	return (color);
 }

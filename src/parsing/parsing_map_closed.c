@@ -11,12 +11,19 @@ int	check_in_map(char **map_cpy, int x, int y, t_data *data)
 	return (0);
 }
 
-void	check_angle(char **map_cpy, int y, int x, t_data *data)
+/* void	check_angle(char **map_cpy, int y, int x, t_data *data)
 {
 	if (map_cpy[y - 1][x] == ' ' || map_cpy[y + 1][x] == ' '
 	|| map_cpy[y][x - 1] == ' ' || map_cpy[y][x + 1] == ' '
 	|| map_cpy[y - 1][x - 1] == ' ' || map_cpy[y - 1][x + 1] == ' '
 	|| map_cpy[y + 1][x - 1] == ' ' || map_cpy[y + 1][x + 1] == ' ')
+		data->map_data.valid_map = 0;
+} */
+
+void	check_angle(char **map_cpy, int y, int x, t_data *data)
+{
+	if (map_cpy[y - 1][x] == ' ' || map_cpy[y + 1][x] == ' '
+	|| map_cpy[y][x - 1] == ' ' || map_cpy[y][x + 1] == ' ')
 		data->map_data.valid_map = 0;
 }
 
@@ -44,7 +51,7 @@ void	check_wall(t_data *data)
 	char	**map_cpy;
 
 	y = -1;
-	map_cpy = malloc(sizeof(char *) * data->map_data.nb_row + 1);
+	map_cpy = malloc(sizeof(char *) * (data->map_data.nb_row + 1));
 	while (data->map_data.map[++y])
 		map_cpy[y] = ft_strdup(data->map_data.map[y]);
 	map_cpy[y] = NULL;
@@ -57,7 +64,7 @@ void	check_wall(t_data *data)
 			if (map_cpy[y][x] == '0')
 				is_closed(map_cpy, y, x, data);
 			if (data->map_data.valid_map == 0)
-				return (printf("Error\nMap not close\n"), free_array(map_cpy));
+				return (free_array(map_cpy), ft_error_data(data, 5));
 			x++;
 		}
 		y++;

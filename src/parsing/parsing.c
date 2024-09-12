@@ -15,6 +15,7 @@ void	init_map_data(t_data *data)
 	data->map_data.cf = NULL;
 	data->map_data.count_line = 0;
 	data->map_data.valid_map = 1;
+	data->map_data.map = NULL;
 }
 
 void	read_map(int file, t_data *data)
@@ -24,12 +25,14 @@ void	read_map(int file, t_data *data)
 
 	line = get_next_line(file);
 	if (!line)
-		ft_error(3);
-	while (line[0] == '\n')
+		ft_error_data(data, 1);
+	while (line != NULL && line[0] == '\n')
 	{
 		free(line);
 		line = get_next_line(file);
 	}
+	if (!line)
+		return (free(line), close(file), ft_error_data(data, 1));
 	map_line = ft_strdup("");
 	while (1)
 	{
@@ -41,8 +44,7 @@ void	read_map(int file, t_data *data)
 	}
 	free(line);
 	data->map_data.map = ft_split(map_line, '\n');
-	close(file);
-	free(map_line);
+	return (close(file), free(map_line));
 }
 
 void	read_option(char **av, t_data *data)
@@ -57,12 +59,12 @@ void	read_option(char **av, t_data *data)
 	if (!line)
 		ft_error(3);
 	check_line(line, data);
+	free(line);
 	while (1)
 	{
-		free(line);
 		line = get_next_line(file);
 		if (!line)
-			break ;
+			return (close(file), free(line));
 		check_line(line, data);
 		if (data->map_data.count_line == 6)
 		{
@@ -70,6 +72,7 @@ void	read_option(char **av, t_data *data)
 			read_map(file, data);
 			break ;
 		}
+		free(line);
 	}
 }
 
