@@ -18,6 +18,8 @@
 
 /* Structure */
 
+#define TILE 16;
+
 typedef struct s_coord{
 	int	x;
 	int	y;
@@ -28,6 +30,11 @@ typedef struct s_pos{
 	double	y;
 }	t_pos;
 
+typedef struct s_player{
+	t_pos	ppos;
+	t_pos	pdir;
+}	t_player;
+
 typedef struct s_map_data{
 	char			**map;
 	unsigned int	nb_column;
@@ -35,8 +42,7 @@ typedef struct s_map_data{
 	int				p_count;
 	int				width;
 	int				height;
-	t_pos			p_pos;
-
+	t_player		player;
 	char			*no;
 	char			*so;
 	char			*we;
@@ -85,7 +91,7 @@ void	paint_tile_mmap(int x, int y, int color,t_data *data);
 int		is_player_mmap(char c);
 int		is_wall_mmap(char c);
 int		is_floor_mmap(char c);
-t_coord	search_player(t_data *data);
+t_pos	search_player(t_data *data);
 
 
 /* raycast/pos.c */
