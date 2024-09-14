@@ -29,15 +29,31 @@ int	set_minimap(t_data *data)
 
 void	put_tile_mmap(int x, int y, t_data *data)
 {
-	if (!is_player_mmap(data->map_data.map[y][x]))
-	{
-		paint_tile_mmap(x, y, 0x0000FF, data);
-
-	}
 	if (!is_wall_mmap(data->map_data.map[y][x]))
 		paint_tile_mmap(x, y, 0x00FF00, data);
-	if (!is_floor_mmap(data->map_data.map[y][x]))
+	if (!is_floor_mmap(data->map_data.map[y][x]) || !is_player_mmap(data->map_data.map[y][x]))
 		paint_tile_mmap(x, y, 0xFF0000, data);
+	put_player_mmap(data);
+}
+
+void	put_player_mmap(t_data *data)
+{	
+	t_player	player;
+	t_pos		pencil;
+	int			tile;
+
+	tile = TILE;
+	player = data->map_data.player;
+	pencil.y = player.ppos.y;
+	pencil.x = player.ppos.x - (tile / 2);
+}
+
+void	paint_pixel_line(t_data *data, int len, t_pos start)
+{
+	while(start.x < (start.x - len))
+	{
+		mlx_pixel_put(data->mlx, data->mlx_win, start.x, start.y, 0x00FF00);
+	}
 }
 
 void	paint_tile_mmap(int x, int y, int color,t_data *data)

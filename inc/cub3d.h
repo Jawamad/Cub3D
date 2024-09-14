@@ -101,6 +101,6 @@ t_coord	init_coord(void);
 /* raycast/mlxinit.c */
 
 void	init_win(t_data *data);
-void  init_map(t_data *data);
+void	init_map(t_data *data);
 
 #endif
