@@ -1,39 +1,45 @@
 #include "../../inc/cub3d.h"
 
+
 int	set_minimap(t_data *data)
 {
-	t_pos	player;
-	t_pos	pencil;
+	t_pos	map_pen;
+	t_pos	map_reader;
+	int		tile_size;
 
-	player = search_player(data);
-	printf("%d and %d\n", player.x, player.y);
-	pencil.x = player.x - 5;
-	pencil.y = player.y - 5;
-	if (pencil.x < 0)
-		pencil.x = 0;
-	if (pencil.y < 0)
-		pencil.y = 0;
-	while (pencil.y < (player.y + 5) && pencil.y < data->map_data.height)
+	tile_size = TILE;
+	map_pen.x = tile_size * 2;
+	map_pen.y = tile_size * 2;
+	map_reader.x = search_player(data).x - 5;
+	map_reader.y = search_player(data).y - 5;
+	while (map_reader.y < search_player(data).y + 5 && map_reader.y < data->map_data.height)
 	{
-		printf("%d < %d \n", pencil.y, (player.y + 5));
-		while (pencil.x < (player.x + 5) && pencil.x < data->map_data.width)
+		while (map_reader.x < data->map_data.width && map_reader.x < search_player(data).x + 5)
 		{
-			put_tile_mmap(pencil.x, pencil.y, data);
-			pencil.x++;
+			if (map_reader.x >= 0 && map_reader.y >= 0)
+				put_tile_mmap(map_pen, map_reader, data);
+			map_pen.x += tile_size;
+			map_reader.x++;
 		}
-		pencil.x = player.x - 5;
-		pencil.y++;
+		map_pen.x = tile_size * 2;
+		map_reader.x = search_player(data).x - 5;
+		map_pen.y += tile_size;
+		map_reader.y++;
 	}
-	return (0);
+	return (1);
 }
 
-void	put_tile_mmap(int x, int y, t_data *data)
+void	put_tile_mmap(t_pos map_pen, t_pos map_reader, t_data *data)
 {
-	if (!is_wall_mmap(data->map_data.map[y][x]))
-		paint_tile_mmap(x, y, 0x00FF00, data);
-	if (!is_floor_mmap(data->map_data.map[y][x]) || !is_player_mmap(data->map_data.map[y][x]))
-		paint_tile_mmap(x, y, 0xFF0000, data);
-	put_player_mmap(data);
+	if (!is_floor_mmap(data->map_data.map[(int)map_reader.y][(int)map_reader.x]))
+		paint_tile_mmap(map_pen.x, map_pen.y, 0xFF0000, data);
+	if (!is_wall_mmap(data->map_data.map[(int)map_reader.y][(int)map_reader.x]))
+		paint_tile_mmap(map_pen.x, map_pen.y, 0x00FF00, data);
+	if (is_player_mmap(data->map_data.map[(int)map_reader.y][(int)map_reader.x]))
+	{
+		paint_tile_mmap(map_pen.x, map_pen.y, 0xFF0000, data);
+		//put_player_mmap(data);
+	}
 }
 
 void	put_player_mmap(t_data *data)
@@ -75,6 +81,7 @@ void	paint_tile_mmap(int x, int y, int color,t_data *data)
 		pencil.y++;
 	}
 }
+
 int	is_wall_mmap(char c)
 {
 	if (c == '1')
@@ -94,7 +101,6 @@ int	is_floor_mmap(char c)
 		return (0);
 	return(1);
 }
-
 
 t_pos	search_player(t_data *data)
 {

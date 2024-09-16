@@ -86,13 +86,12 @@ void	free_array(char **array);
 
 /* raycast/minimap.c */
 int		set_minimap(t_data *data);
-void	put_tile_mmap(int x, int y, t_data *data);
+void	put_tile_mmap(t_pos map_pen, t_pos map_reader, t_data *data);
 void	paint_tile_mmap(int x, int y, int color,t_data *data);
 int		is_player_mmap(char c);
 int		is_wall_mmap(char c);
 int		is_floor_mmap(char c);
 t_pos	search_player(t_data *data);
-
 
 /* raycast/pos.c */
 t_pos	init_pos(void);
