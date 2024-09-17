@@ -8,8 +8,8 @@ int	set_minimap(t_data *data)
 	int		tile_size;
 
 	tile_size = TILE;
-	map_pen.x = tile_size * 2;
-	map_pen.y = tile_size * 2;
+	map_pen.x = tile_size;
+	map_pen.y = tile_size;
 	map_reader.x = search_player(data).x - 5;
 	map_reader.y = search_player(data).y - 5;
 	while (map_reader.y < search_player(data).y + 5 && map_reader.y < data->map_data.height)
@@ -21,7 +21,7 @@ int	set_minimap(t_data *data)
 			map_pen.x += tile_size;
 			map_reader.x++;
 		}
-		map_pen.x = tile_size * 2;
+		map_pen.x = tile_size;
 		map_reader.x = search_player(data).x - 5;
 		map_pen.y += tile_size;
 		map_reader.y++;
@@ -31,11 +31,12 @@ int	set_minimap(t_data *data)
 
 void	put_tile_mmap(t_pos map_pen, t_pos map_reader, t_data *data)
 {
+	printf("x %f y %f\n", map_pen.x, map_pen.y);
 	if (!is_floor_mmap(data->map_data.map[(int)map_reader.y][(int)map_reader.x]))
 		paint_tile_mmap(map_pen.x, map_pen.y, 0xFF0000, data);
 	if (!is_wall_mmap(data->map_data.map[(int)map_reader.y][(int)map_reader.x]))
 		paint_tile_mmap(map_pen.x, map_pen.y, 0x00FF00, data);
-	if (is_player_mmap(data->map_data.map[(int)map_reader.y][(int)map_reader.x]))
+	if (!is_player_mmap(data->map_data.map[(int)map_reader.y][(int)map_reader.x]))
 	{
 		paint_tile_mmap(map_pen.x, map_pen.y, 0xFF0000, data);
 		//put_player_mmap(data);
@@ -68,16 +69,16 @@ void	paint_tile_mmap(int x, int y, int color,t_data *data)
 	int		format;
 
 	format = TILE;
-	pencil.x = x * format;
-	pencil.y = y * format;
-	while (pencil.y < (y * format + format))
+	pencil.x = x;
+	pencil.y = y;
+	while (pencil.y < (y + format))
 	{
-		while (pencil.x < (x * format + format))
+		while (pencil.x < (x + format))
 		{
 			mlx_pixel_put(data->mlx, data->mlx_win, pencil.x, pencil.y, color);
 			pencil.x++;
 		}
-		pencil.x = x * format;
+		pencil.x = x;
 		pencil.y++;
 	}
 }

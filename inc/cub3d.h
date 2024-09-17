@@ -18,7 +18,7 @@
 
 /* Structure */
 
-#define TILE 16;
+#define TILE 8;
 
 typedef struct s_coord{
 	int	x;
