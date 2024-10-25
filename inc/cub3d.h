@@ -15,9 +15,11 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-
+# include <math.h>
 /* Structure */
 
+
+//#define M_PI       3.14159265358979323846;
 #define TILE 8;
 
 typedef struct s_coord{
@@ -32,8 +34,14 @@ typedef struct s_pos{
 
 typedef struct s_player{
 	t_pos	ppos;
-	t_pos	pdir;
+	float	angle;
 }	t_player;
+
+typedef struct s_arrow{
+	t_pos head;
+	t_pos left;
+	t_pos right;
+}	t_arrow;
 
 typedef struct s_map_data{
 	char			**map;
@@ -55,9 +63,7 @@ typedef struct s_map_data{
 typedef struct s_data{
 	void			*mlx;
 	void			*mlx_win;
-//	int				nb_moves;
 	t_map_data		map_data;
-//	t_img			img;
 }		t_data;
 
 /* Fonctions */
@@ -83,6 +89,7 @@ void	free_char_option(t_data *data);
 
 /* utils/ft_utils.c */
 void	free_array(char **array);
+void	ft_fswap(float *a, float *b);
 
 /* raycast/minimap.c */
 int		set_minimap(t_data *data);
@@ -92,6 +99,10 @@ int		is_player_mmap(char c);
 int		is_wall_mmap(char c);
 int		is_floor_mmap(char c);
 t_pos	search_player(t_data *data);
+void	put_player_mmap(t_data *data);
+t_arrow g_player_arrow(t_player player);
+void check_arrow_dir(t_data *data, t_arrow *arrow);
+void	draw_filled_triangle(t_data *data, t_arrow *arrow);
 
 /* raycast/pos.c */
 t_pos	init_pos(void);
