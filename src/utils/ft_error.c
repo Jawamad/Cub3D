@@ -35,24 +35,24 @@ void	ft_error_data(t_data *data, int flag)
 		perror("");
 	if (flag == 8)
 		perror("");
-	if (data->map_data.map != NULL)
-		free_array(data->map_data.map);
+	if (data->map != NULL)
+		free_array(data->map);
 	free_char_option(data);
 	exit (1);
 }
 
 void	free_char_option(t_data *data)
 {
-	if (data->map_data.no != NULL)
-		free(data->map_data.no);
-	if (data->map_data.so != NULL)
-		free(data->map_data.so);
-	if (data->map_data.we != NULL)
-		free(data->map_data.we);
-	if (data->map_data.ea != NULL)
-		free(data->map_data.ea);
-	if (data->map_data.cc != NULL)
-		free(data->map_data.cc);
-	if (data->map_data.cf != NULL)
-		free(data->map_data.cf);
+	if (data->no != NULL)
+		free(data->no);
+	if (data->so != NULL)
+		free(data->so);
+	if (data->we != NULL)
+		free(data->we);
+	if (data->ea != NULL)
+		free(data->ea);
+	if (data->cc != NULL)
+		free(data->cc);
+	if (data->cf != NULL)
+		free(data->cf);
 }

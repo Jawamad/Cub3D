@@ -9,6 +9,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <math.h>
+# include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
@@ -16,21 +18,82 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 
+# define PI 	3.14159
+# define FOV	60
+
+//# define BUFFER_SIZE 42
+
+# define TILE_SIZE 		64
+# define SCR_WIDTH 		1900
+# define SCR_HEIGHT 	1000
+# define ROTATE_LEFT	65361
+# define ROTATE_RIGHT	65363
+# define BACK			115
+# define RIGHT			100
+//azerty :
+# define FORWARD		122
+# define LEFT			113
+//qwerty :
+//# define FORWARD		119
+//# define LEFT			97
+
 /* Structure */
 
-typedef struct s_pos{
-	int				x;
-	int				y;
-}	t_pos;
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
 
-typedef struct s_map_data{
+typedef struct s_texture
+{
+	void	*img;
+	int		*addr;
+	int		bits_per_pixel;
+	int		 line_length;
+	int		endian;
+	int		height;        
+	int		width;
+	char	*path;
+}	t_texture;
+
+typedef struct s_ray
+{
+	double	r_distance;
+	double	r_angle;
+	double	horiz_x;
+	double	horiz_y;
+	double	vert_x;
+	double	vert_y;
+	int		flag;
+}	t_ray;
+
+typedef struct s_player
+{
+	int		map_x;
+	int		map_y;
+	int		p_x;
+	int		p_y;
+	float	fov_rad;
+	int		p_speed;
+	double	p_angle;
+}	t_player;
+
+typedef struct s_data{
+	void			*mlx;
+	void			*win;
+
+	t_img			img_screen;
+
 	char			**map;
 	int				nb_column;
 	int				nb_row;
 	int				p_count;
 	int				width;
 	int				height;
-	t_pos			p_pos;
 
 	char			*no;
 	char			*so;
@@ -40,14 +103,9 @@ typedef struct s_map_data{
 	char			*cf;
 	int				count_line;
 	int				valid_map;
-}	t_map_data;
 
-typedef struct s_data{
-	void			*mlx;
-	void			*mlx_win;
-//	int				nb_moves;
-	t_map_data		map_data;
-//	t_img			img;
+	t_player		player;
+	t_ray			ray;
 }		t_data;
 
 /* Fonctions */

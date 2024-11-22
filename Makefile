@@ -2,8 +2,9 @@ NAME = cub3d
 DIR_SRC = src/
 DIR_OBJ = obj/
 LIBFT = libft/libft.a
+MLX = mlx/libmlx.a
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror -g -ggdb 
+CFLAGS = -Wall -Wextra -Werror -g -ggdb -O3 -ffast-math
 LDFLAGS = -lreadline
 RM = rm -f
 
@@ -37,20 +38,21 @@ $(NAME): $(OBJS)
 	@echo "\n"
 	@echo "$(BOLD)$(ORANGE)⏳      Compilation in progress...      ⏳$(RESET)"
 	@make -sC ./libft
+	@make -sC ./mlx
 	@echo "\n"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(LDFLAGS) -lXext -lX11
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX) $(LDFLAGS) -lXext -lX11
 	@echo "$(BOLD)$(GREEN)🎆           Compilation clear          🎆$(RESET)"
 	@echo "$(BOLD)$(BLUE)------------------------------------------$(RESET)"
 
 clean:
-	@make clean -sC libft
+	@make clean -sC libft mlx
 	@rm -rf $(DIR_OBJ)
 	@echo "$(BOLD)$(YELLOW)🧹🧼     Cleaned .o Cub3d's files     🧼🧹$(RESET)"
 	@echo "\n"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@make fclean -sC libft
+	@make fclean -sC libft mlx
 	@echo "$(BOLD)$(YELLOW)🧹🧼        Cleaned Cub3d exec        🧼🧹$(RESET)"
 	@echo "\n"
 
