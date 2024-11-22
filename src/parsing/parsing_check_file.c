@@ -36,14 +36,14 @@ void	line_cardinal(char *line, t_data *data, int flag)
 	if (line[j] != '.' && line[j + 1] != '/')
 		ft_error_data(data, 0);
 	if (flag == 1)
-		data->map_data.no = ft_strndup_gnl(line + j, (i - j));
+		data->no = ft_strndup_gnl(line + j, (i - j));
 	if (flag == 2)
-		data->map_data.so = ft_strndup_gnl(line + j, (i - j));
+		data->so = ft_strndup_gnl(line + j, (i - j));
 	if (flag == 3)
-		data->map_data.we = ft_strndup_gnl(line + j, (i - j));
+		data->we = ft_strndup_gnl(line + j, (i - j));
 	if (flag == 4)
-		data->map_data.ea = ft_strndup_gnl(line + j, (i - j));
-	data->map_data.count_line += 1;
+		data->ea = ft_strndup_gnl(line + j, (i - j));
+	data->count_line += 1;
 }
 
 void	check_line(char *line, t_data *data)
@@ -55,17 +55,17 @@ void	check_line(char *line, t_data *data)
 		return ;
 	while (line[i] == ' ' || (line[i] >= 9 && line[i] <= 13))
 		i++;
-	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
+	if (line[i] == 'N' && line[i + 1] == 'O' && data->no == NULL)
 		line_cardinal(line, data, 1);
-	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
+	else if (line[i] == 'S' && line[i + 1] == 'O' && data->so == NULL)
 		line_cardinal(line, data, 2);
-	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
+	else if (line[i] == 'W' && line[i + 1] == 'E' && data->we == NULL)
 		line_cardinal(line, data, 3);
-	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
+	else if (line[i] == 'E' && line[i + 1] == 'A' && data->ea == NULL)
 		line_cardinal(line, data, 4);
-	else if (line[i] == 'C' && line[i + 1] == ' ')
+	else if (line[i] == 'C' && data->cc == NULL)
 		line_color(line, data, 1);
-	else if (line[i] == 'F' && line[i + 1] == ' ')
+	else if (line[i] == 'F' && data->cf == NULL)
 		line_color(line, data, 2);
 	else
 	{
@@ -80,23 +80,23 @@ void	check_char_map(t_data *data)
 	int	y;
 
 	y = 0;
-	while (data->map_data.map[y])
+	while (data->map[y])
 	{
 		x = 0;
-		while (data->map_data.map[y][x])
+		while (data->map[y][x])
 		{
-			if (data->map_data.map[y][x] == ' '
-			|| data->map_data.map[y][x] == '1'
-			|| data->map_data.map[y][x] == '0'
-			|| data->map_data.map[y][x] == 'N'
-			|| data->map_data.map[y][x] == 'S'
-			|| data->map_data.map[y][x] == 'E'
-			|| data->map_data.map[y][x] == 'W')
+			if (data->map[y][x] == ' '
+			|| data->map[y][x] == '1'
+			|| data->map[y][x] == '0'
+			|| data->map[y][x] == 'N'
+			|| data->map[y][x] == 'S'
+			|| data->map[y][x] == 'E'
+			|| data->map[y][x] == 'W')
 				x++;
 			else
 				ft_error_data(data, 4);
 		}
 		y++;
 	}
-	data->map_data.nb_row = y;
+	data->nb_row = y;
 }

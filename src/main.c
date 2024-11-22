@@ -12,21 +12,21 @@ int	main(int ac, char **av)
 	parsing(av, &data);
 
 
-	printf("NO : %s\n", data.map_data.no);
-	printf("SO : %s\n", data.map_data.so);
-	printf("WE : %s\n", data.map_data.we);
-	printf("EA : %s\n", data.map_data.ea);
-	printf("C : %s\n", data.map_data.cc);
-	printf("F : %s\n", data.map_data.cf);
+	printf("NO : %s\n", data.no);
+	printf("SO : %s\n", data.so);
+	printf("WE : %s\n", data.we);
+	printf("EA : %s\n", data.ea);
+	printf("C : %s\n", data.cc);
+	printf("F : %s\n", data.cf);
 	while (i < 14)
 	{
-		printf("ligne %d : %s\n", i, data.map_data.map[i]);
+		printf("ligne %d : %s\n", i, data.map[i]);
 		i++;
 	}
 
 
-	if (data.map_data.map[0] != NULL)
-		free_array(data.map_data.map);
+	if (data.map[0] != NULL)
+		free_array(data.map);
 	free_char_option(&data);
 
 	
