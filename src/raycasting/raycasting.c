@@ -1,8 +1,38 @@
 #include "cub3d.h"
 
+double	get_horizontal_distance(t_data *data)
+{
+	double	h_x;
+	double	h_y;
+	double	inter_x;
+	double	inter_y;
+}
+
+double	get_vertical_distance(t_data *data)
+{
+	double	v_x;
+	double	v_y;
+	double	inter_x;
+	double	inter_y;
+}
+
 void	get_shorter_distance(t_data *data)
 {
-	
+	double	h_distance;
+	double	v_distance;
+
+	h_distance = get_horizontal_distance(data);
+	v_distance = get_vertical_distance(data);
+	if (h_distance <= v_distance)
+	{
+		data->ray.r_distance = h_distance;
+		data->ray.flag = 1;
+	}
+	else
+	{
+		data->ray.r_distance = v_distance;
+		data->ray.flag = 0;
+	}
 }
 
 void	raycasting(t_data *data)
